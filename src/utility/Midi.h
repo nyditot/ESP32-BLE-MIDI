@@ -26,7 +26,9 @@ public:
      * @param range Range of the pitch bend in semitones (default value is 4, which is -2 to +2 semitones)
      * */
     void pitchBend(uint8_t channel, float semitones, float range = 4);
-    
+    void pitchBendRange(uint8_t channel, uint8_t lsb, uint8_t msb);
+    void pitchBendRange(uint8_t channel, uint16_t value);
+
     void mmcPlay(void);
     void mmcDeferredPlay(void);
     void mmcPause(void);
@@ -49,6 +51,8 @@ public:
     void setAfterTouchCallback(void (*callback)(uint8_t channel, uint8_t pressure, uint16_t timestamp));
     void setPitchBendCallback(void (*callback)(uint8_t channel, uint8_t lsb, uint8_t msb, uint16_t timestamp));
     void setPitchBendCallback(void (*callback)(uint8_t channel, uint16_t value, uint16_t timestamp));
+    void setPitchBendRangeCallback(void (*callback)(uint8_t channel, uint8_t value, uint8_t, uint16_t timestamp));
+    void setPitchBendRangeCallback(void (*callback)(uint8_t channel, uint16_t value, uint16_t timestamp));
 
     void enableDebugging(Stream& debugStream = Serial);
     void disableDebugging();
@@ -84,6 +88,8 @@ private:
     void (*afterTouchCallback)(uint8_t, uint8_t, uint16_t) = nullptr;
     void (*pitchBendCallback)(uint8_t, uint8_t, uint8_t, uint16_t) = nullptr;
     void (*pitchBendCallback2)(uint8_t, uint16_t, uint16_t) = nullptr;
+    void (*pitchBendRangeCallback)(uint8_t, uint8_t, uint8_t, uint16_t) = nullptr;
+    void (*pitchBendRangeCallback2)(uint8_t, uint16_t, uint16_t) = nullptr;
 
     uint16_t currentTimestamp = 0;
     

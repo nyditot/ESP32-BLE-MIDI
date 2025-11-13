@@ -122,6 +122,27 @@ void Midi::pitchBend(uint8_t channel, float semitones, float range)
     pitchBend(channel, integerValue);
 }
 
+void Midi::pitchBendRange(uint8_t channel, uint8_t lsb, uint8_t msb)
+{
+    uint8_t midiMessage[] = {
+        (uint8_t)(0xB0 | channel),
+         0x65, 0x00, 0x64, 0x00,
+         0x06, 
+         msb,
+         0x26,  
+         lsb};
+
+    sendMessage(midiMessage, sizeof(midiMessage));
+}
+
+void Midi::pitchBendRange(uint8_t channel, uint16_t value)
+{
+    value <<= 1;
+    byte msb = highByte(value);
+    byte lsb = lowByte(value) >> 1;
+    pitchBendRange(channel, lsb, msb);
+}
+
 // ###################################
 // IO
 
