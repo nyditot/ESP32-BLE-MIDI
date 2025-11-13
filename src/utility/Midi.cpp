@@ -408,6 +408,16 @@ void Midi::setPitchBendCallback(void (*callback)(uint8_t, uint16_t, uint16_t))
     pitchBendCallback2 = callback;
 }
 
+void Midi::setPitchBendRangeCallback(void (*callback)(uint8_t, uint8_t, uint8_t, uint16_t))
+{
+    pitchBendRangeCallback = callback;
+}
+
+void Midi::setPitchBendRangeCallback(void (*callback)(uint8_t, uint16_t, uint16_t))
+{
+    pitchBendRangeCallback2 = callback;
+}
+
 void Midi::enableDebugging(Stream& debugStream) {
     debug.enable(debugStream);
 }
